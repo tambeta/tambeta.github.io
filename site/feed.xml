@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2018-06-01T12:36:06-05:00</updated><id>http://0.0.0.0:4000/</id><title type="html">tambeta.github.io</title><subtitle>Sundry hacks, snippets and musings by @tambeta.</subtitle><entry><title type="html">Reproduce useful tab bar behavior from Tab Mix Plus on Firefox Quantum</title><link href="http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior.html" rel="alternate" type="text/html" title="Reproduce useful tab bar behavior from Tab Mix Plus on Firefox Quantum" /><published>2018-06-01T00:00:00-05:00</published><updated>2018-06-01T00:00:00-05:00</updated><id>http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior</id><content type="html" xml:base="http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior.html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Quantum_(Mozilla)&quot;&gt;Firefox Quantum&lt;/a&gt; takes a
+great stride forward in terms of perceived latency and memory use, and truly
+feels like a modern browser in 2018. Unfortunately there’s a flip side:
+dropped support for the massive library of legacy (non-WE) extensions. I took
+some time to reproduce the most useful portions of my &lt;a href=&quot;http://www.tabmixplus.org/&quot;&gt;Tab Mix
+Plus&lt;/a&gt; configuration:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;switch tab upon mouse wheel scroll on the tab bar&lt;/li&gt;
+  &lt;li&gt;close tab upon double click on a tab&lt;/li&gt;
+  &lt;li&gt;undo close tab upon middle click on the tab bar&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Additionally, &lt;code class=&quot;highlighter-rouge&quot;&gt;userChrome.css&lt;/code&gt; contains styles to hide the tab bar if only one
+tab is open.&lt;/p&gt;
+
+&lt;p&gt;Create or update these files in the &lt;code class=&quot;highlighter-rouge&quot;&gt;chrome&lt;/code&gt; subdirectory in your &lt;a href=&quot;http://kb.mozillazine.org/Profile_folder_-_Firefox&quot;&gt;Firefox
+profile directory&lt;/a&gt;:&lt;/p&gt;
+
+&lt;h4 id=&quot;userchromecss&quot;&gt;userChrome.css&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.tabbrowser-arrowscrollbox&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.arrowscrollbox-scrollbox&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;-moz-binding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(&quot;bindings.xml#tabs-scroll&quot;)&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;/* Hide tab bar if only one tab open  */&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;#tabbrowser-tabs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#tabbrowser-tabs&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;arrowscrollbox&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;min-height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;#tabbrowser-tabs&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;tab&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;--tab-min-height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;#tabbrowser-tabs&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;tab&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:first-child:last-child&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;bindingsxml&quot;&gt;bindings.xml&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE bindings&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;bindings&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.mozilla.org/xbl&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;binding&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;tabs-scroll&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;extends=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;chrome://global/content/bindings/scrollbox.xml#scrollbox&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;handlers&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;handler&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;event=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;wheel&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;![CDATA[
+                // Preserve original behaviour if meta (Windows) key is held
+
+                if (event.metaKey) return;
+
+                if (event.deltaY &amp;lt; 0) {
+                    gBrowser.tabContainer.advanceSelectedTab(-1, true);
+                }
+                else {
+                    gBrowser.tabContainer.advanceSelectedTab(1, true);
+                }
+
+                event.stopPropagation();
+                event.preventDefault();
+            ]]&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/handler&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;handler&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;event=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dblclick&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;![CDATA[
+                gBrowser.removeCurrentTab();
+            ]]&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/handler&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;handler&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;event=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;click&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;![CDATA[
+                if (!event.button || event.button != 1)
+                    return;
+
+                var xpc_window = window
+                    .QueryInterface(Ci.nsIInterfaceRequestor)
+                    .getInterface(Ci.nsIDOMWindow);
+                var session_store = Cc['@mozilla.org/browser/sessionstore;1']
+                    .getService(Ci.nsISessionStore);
+
+                session_store.undoCloseTab(xpc_window, 0);
+                event.stopPropagation();
+                event.preventDefault();
+          ]]&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/handler&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/handlers&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/binding&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/bindings&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Firefox Quantum takes a great stride forward in terms of perceived latency and memory use, and truly feels like a modern browser in 2018. Unfortunately there’s a flip side: dropped support for the massive library of legacy (non-WE) extensions. I took some time to reproduce the most useful portions of my Tab Mix Plus configuration:</summary></entry></feed>

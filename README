@@ -1,0 +1,14 @@
+
+Repository for tambeta.github.io. Powered by Jekyll. The helper script
+requires Docker.
+
+To build a new site:
+
+$ ./build new source
+
+To serve and watch / build the site:
+
+$ ./build serve -s source -d site
+
+Access the site on http://localhost:4000.
+
