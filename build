@@ -1,7 +1,22 @@
 #!/bin/env bash
 
+# Run Jekyll in a container and pass along any arguments. Set up watches for
+# the `_site` directory and rsync to root on changes. See README for details.
+
 JEKYLL_VERSION=3.8
+
+cd $(dirname $0)
+trap "kill 0" SIGINT
+
+(
+    while true; do
+        inotifywait -qqr _site
+        sleep 2
+        rsync -qa _site/ .
+    done
+)&
 
 sudo docker run --rm -p 4000:4000 --volume="$PWD:/srv/jekyll" \
   -it jekyll/jekyll:$JEKYLL_VERSION jekyll $@
+kill 0
 

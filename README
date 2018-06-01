@@ -4,11 +4,18 @@ requires Docker.
 
 To build a new site:
 
-$ ./build new source
+$ ./build new _source
 
 To serve and watch / build the site:
 
-$ ./build serve -s source -d site
+$ ./build serve -s _source -d _site
 
 Access the site on http://localhost:4000.
+
+The helper script (`build`) expects results to be generated into `_site`. This
+is a transient directory not under version control. `build` also watches the
+directory for changes and automatically rsyncs it to the root directory. This
+dance is necessary as jekyll doesn't allow building into a destination
+directory containing source, but GitHub Pages doesn't allow serving from
+elsewhere than the root directory.
 
