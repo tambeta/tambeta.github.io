@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2018-06-01T16:48:19-05:00</updated><id>http://0.0.0.0:4000/</id><title type="html">tambeta.github.io</title><subtitle>Sundry hacks, snippets and musings.</subtitle><entry><title type="html">Reproduce useful tab bar behavior from Tab Mix Plus on Firefox Quantum</title><link href="http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior.html" rel="alternate" type="text/html" title="Reproduce useful tab bar behavior from Tab Mix Plus on Firefox Quantum" /><published>2018-06-01T00:00:00-05:00</published><updated>2018-06-01T00:00:00-05:00</updated><id>http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior</id><content type="html" xml:base="http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior.html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Quantum_(Mozilla)&quot;&gt;Firefox Quantum&lt;/a&gt; takes a
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2018-08-24T10:02:28-05:00</updated><id>http://0.0.0.0:4000/</id><title type="html">tambeta.github.io</title><subtitle>Sundry hacks, snippets and musings.</subtitle><entry><title type="html">Reproduce useful tab bar behavior from Tab Mix Plus on Firefox Quantum</title><link href="http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior.html" rel="alternate" type="text/html" title="Reproduce useful tab bar behavior from Tab Mix Plus on Firefox Quantum" /><published>2018-06-01T00:00:00-05:00</published><updated>2018-06-01T00:00:00-05:00</updated><id>http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior</id><content type="html" xml:base="http://0.0.0.0:4000/hack/2018/06/01/firefox-tabbar-behavior.html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Quantum_(Mozilla)&quot;&gt;Firefox Quantum&lt;/a&gt; takes a
 great stride forward in terms of perceived latency and memory use, and truly
 feels like a modern browser in 2018. Unfortunately there’s a flip side:
 dropped support for the massive library of legacy (non-WE) extensions. I took
@@ -66,16 +66,16 @@ profile directory&lt;/a&gt;:&lt;/p&gt;
                 if (!event.button || event.button != 1)
                     return;
 
-                var xpc_window = window
-                    .QueryInterface(Ci.nsIInterfaceRequestor)
-                    .getInterface(Ci.nsIDOMWindow);
-                var session_store = Cc['@mozilla.org/browser/sessionstore;1']
-                    .getService(Ci.nsISessionStore);
-
-                session_store.undoCloseTab(xpc_window, 0);
+                undoCloseTab(0);
                 event.stopPropagation();
                 event.preventDefault();
           ]]&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/handler&amp;gt;&lt;/span&gt;
       &lt;span class=&quot;nt&quot;&gt;&amp;lt;/handlers&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/binding&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/bindings&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Firefox Quantum takes a great stride forward in terms of perceived latency and memory use, and truly feels like a modern browser in 2018. Unfortunately there’s a flip side: dropped support for the massive library of legacy (non-WE) extensions. I took some time to reproduce the most useful portions of my Tab Mix Plus configuration:</summary></entry></feed>
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/bindings&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Edit 2018-08-24: Updated the middle click to undo close tab section to a newer
+API (&lt;code class=&quot;highlighter-rouge&quot;&gt;undoCloseTab&lt;/code&gt;), as
+&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsISessionStore&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nsISessionStore&lt;/code&gt;&lt;/a&gt;
+seems to have been removed in FF 61 the latest. The previous &lt;code class=&quot;highlighter-rouge&quot;&gt;bindings.xml&lt;/code&gt;
+example may be found &lt;a href=&quot;https://bpaste.net/show/5b4648eedb92&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Firefox Quantum takes a great stride forward in terms of perceived latency and memory use, and truly feels like a modern browser in 2018. Unfortunately there’s a flip side: dropped support for the massive library of legacy (non-WE) extensions. I took some time to reproduce the most useful portions of my Tab Mix Plus configuration:</summary></entry></feed>

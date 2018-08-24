@@ -74,13 +74,7 @@ profile directory](http://kb.mozillazine.org/Profile_folder_-_Firefox):
                 if (!event.button || event.button != 1)
                     return;
 
-                var xpc_window = window
-                    .QueryInterface(Ci.nsIInterfaceRequestor)
-                    .getInterface(Ci.nsIDOMWindow);
-                var session_store = Cc['@mozilla.org/browser/sessionstore;1']
-                    .getService(Ci.nsISessionStore);
-
-                session_store.undoCloseTab(xpc_window, 0);
+                undoCloseTab(0);
                 event.stopPropagation();
                 event.preventDefault();
           ]]></handler>
@@ -88,3 +82,10 @@ profile directory](http://kb.mozillazine.org/Profile_folder_-_Firefox):
   </binding>
 </bindings>
 {% endhighlight %}
+
+Edit 2018-08-24: Updated the middle click to undo close tab section to a newer
+API (`undoCloseTab`), as
+[`nsISessionStore`](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsISessionStore)
+seems to have been removed in FF 61 the latest. The previous `bindings.xml`
+example may be found [here](https://bpaste.net/show/5b4648eedb92).
+

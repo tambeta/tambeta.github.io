@@ -113,19 +113,19 @@ profile directory</a>:</p>
                 if (!event.button || event.button != 1)
                     return;
 
-                var xpc_window = window
-                    .QueryInterface(Ci.nsIInterfaceRequestor)
-                    .getInterface(Ci.nsIDOMWindow);
-                var session_store = Cc['@mozilla.org/browser/sessionstore;1']
-                    .getService(Ci.nsISessionStore);
-
-                session_store.undoCloseTab(xpc_window, 0);
+                undoCloseTab(0);
                 event.stopPropagation();
                 event.preventDefault();
           ]]&gt;</span><span class="nt">&lt;/handler&gt;</span>
       <span class="nt">&lt;/handlers&gt;</span>
   <span class="nt">&lt;/binding&gt;</span>
 <span class="nt">&lt;/bindings&gt;</span></code></pre></figure>
+
+<p>Edit 2018-08-24: Updated the middle click to undo close tab section to a newer
+API (<code class="highlighter-rouge">undoCloseTab</code>), as
+<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsISessionStore"><code class="highlighter-rouge">nsISessionStore</code></a>
+seems to have been removed in FF 61 the latest. The previous <code class="highlighter-rouge">bindings.xml</code>
+example may be found <a href="https://bpaste.net/show/5b4648eedb92">here</a>.</p>
 
 
   </div><a class="u-url" href="/hack/2018/06/01/firefox-tabbar-behavior.html" hidden></a>
