@@ -1,0 +1,110 @@
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	color: #333;
+	background-color: black;
+	font-family: Cantarell, "Lucida Grande", Arial, sans-serif;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.hidden {
+	display: none;
+}
+
+.lightbg {
+	background-color: #eee;
+}
+
+/* Header */
+
+#header {
+	line-height: 3em;
+	padding: 1em;
+	text-align: right;
+}
+
+#header_left {
+	font-size: 200%;
+	float: left;
+}
+
+#header_right {
+	white-space: nowrap;
+}
+
+/* Menus */
+
+#settings {
+	padding: 3em;
+}
+
+#header a, ._meowmenu_btn {
+	background-color: #FFE3C3;
+	color: inherit;
+	text-decoration: none;
+	padding: 0.4em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	margin-right: 0.3em;
+	font-size: 140%;
+}
+
+._meowmenu_btn_on {
+	background-color: #FFA641;
+}
+
+#header a:hover, ._meowmenu_btn:hover {
+	background-color: #FFBC70;
+}
+
+/* Container */
+
+#container {
+	clear: both;
+	width: 800px;
+	height: 500px;
+	padding: 0px;
+	margin: auto;
+	border: 2px dashed #444;
+	border-top: none;
+	border-bottom: none;
+	margin-top: 3em;
+	margin-bottom: 3em;
+	text-align: center;
+}
+
+#inner_container {
+	background-color: #dadada;
+	line-height: 500px;
+}
+
+#container img {
+	vertical-align: middle;
+}
+
+/* Pushed footer setup */
+
+#wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4em;
+}
+
+#footer, #push {
+	height: 4em;
+}
+
+#footer {
+	padding-left: 1em;
+	line-height: 4em;
+}
